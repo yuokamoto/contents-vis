@@ -1,0 +1,6 @@
+[submodule "contents-vis-server"]
+	path = contents-vis-server
+	url = https://github.com/yuokamoto/contents-vis-server.git
+[submodule "contents-vis-frontend"]
+	path = contents-vis-frontend
+	url = https://github.com/yuokamoto/contents-vis-frontend.git
