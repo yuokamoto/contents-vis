@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  contents-vis-server:
+    depends_on:
+      - es
+    image: yuokamoto1988/contents-vis-server
+    build: ./contents-vis-server
+    extra_hosts:
+      - "localhost:192.168.11.14"
+    ports:
+      - "5000:5000"
+    # environment:
+    #   API_HOST: "192.168.11.101" 
+
+  contents-vis-frontend:
+    image: yuokamoto1988/contents-vis-frontend
+    build: ./contents-vis-frontend
+    environment:
+        NODE_ENV: production
+    ports:
+        - "80:80"
+
+  # elastic search.
+  es:
+    image: elasticsearch:7.6.2
+    environment: 
+        - discovery.type=single-node
+    ports:
+        - "9200:9200"
+        - "9300:9300"
+    volumes:
+        - /usr/local/var/lib/elasticsearch:/usr/share/elasticsearch/data
+        - ./elastic/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        # - /usr/local/etc/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  kibana:
+    depends_on:
+        - es
+    image: kibana:7.6.2
+    ports:
+        - 5601:5601
