@@ -4,7 +4,7 @@ services:
   contents-vis-server:
     depends_on:
       - es
-    image: yuokamoto1988/contents-vis-server
+    image: yuokamoto1988/contents-vis-server:v1
     build: ./contents-vis-server
     extra_hosts:
       - "localhost:192.168.11.14"
@@ -14,10 +14,11 @@ services:
     #   API_HOST: "192.168.11.101" 
 
   contents-vis-frontend:
-    image: yuokamoto1988/contents-vis-frontend
+    image: yuokamoto1988/contents-vis-frontend:v1
     build: ./contents-vis-frontend
     environment:
         NODE_ENV: production
+        REACT_APP_BACKEND_URL: http://localhost:5000
     ports:
         - "80:80"
 
