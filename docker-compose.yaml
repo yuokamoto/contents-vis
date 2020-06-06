@@ -7,11 +7,12 @@ services:
     image: yuokamoto1988/contents-vis-server:v1
     build: ./contents-vis-server
     extra_hosts:
-      - "localhost:192.168.11.14"
+      - "localhost:192.168.11.14" #this should be ip of local host machine
     ports:
       - "5000:5000"
-    # environment:
-    #   API_HOST: "192.168.11.101" 
+    env_file:
+      - contents-vis-server/local.env
+    restart: always
 
   contents-vis-frontend:
     image: yuokamoto1988/contents-vis-frontend:v1

@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  contents-vis-server:
+    image: yuokamoto1988/contents-vis-server:v1
+    build: ./contents-vis-server
+    # extra_hosts:
+    #   - "localhost:192.168.11.14"
+    ports:
+      - "5000:5000"
+    env_file:
+      - contents-vis-server/remote.env
+    restart: always
+
+  contents-vis-frontend:
+    image: yuokamoto1988/contents-vis-frontend:v1
+    build: ./contents-vis-frontend
+    environment:
+        NODE_ENV: production
+        REACT_APP_BACKEND_URL: http://localhost:5000
+    ports:
+        - "80:80"
+    restart: always
